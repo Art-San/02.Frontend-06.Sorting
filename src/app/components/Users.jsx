@@ -31,6 +31,11 @@ const Users = ({ users: allUsers, ...rest }) => {
         setCurrentPage(pageIndex)
     }
 
+    const handleSort = (item) => {
+        // Реализация события сортировки
+        console.log('item', item)
+    }
+
     const filteredUsers = selectedProf
         ? allUsers.filter(
               (user) =>
@@ -67,25 +72,11 @@ const Users = ({ users: allUsers, ...rest }) => {
             <div className="d-flex flex-column">
                 <SearchStatus length={count} />
                 {count > 0 && (
-                    <UsersTable users={userGrop} {...rest} />
-                    // <table className="table">
-                    //     <thead>
-                    //         <tr>
-                    //             <th scope="col">Имя</th>
-                    //             <th scope="col">Качества</th>
-                    //             <th scope="col">Провфессия</th>
-                    //             <th scope="col">Встретился, раз</th> // Переносим это в UsersTable, и тогда в компоненте Users все компоненты будут находится на одном уровне обстракции
-                    //             <th scope="col">Оценка</th>
-                    //             <th scope="col">Избранное</th>
-                    //             <th />
-                    //         </tr>
-                    //     </thead>
-                    //     <tbody className="table-group-divider">
-                    //         {userGrop.map((user) => (
-                    //             <User key={user._id} {...rest} {...user} />
-                    //         ))}
-                    //     </tbody>
-                    // </table>
+                    <UsersTable
+                        users={userGrop}
+                        onSort={handleSort} // Реализация события сортировки
+                        {...rest}
+                    />
                 )}
                 <div className="d-flex justify-content-center">
                     <Pagination
