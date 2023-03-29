@@ -6,13 +6,15 @@ import PropTypes from 'prop-types'
 import api from '../api/index'
 import SearchStatus from './SearchStatus'
 import UsersTable from './UsersTable'
+import _ from 'lodash' // Реализация сортировки
 
 const Users = ({ users: allUsers, ...rest }) => {
     const [currentPege, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState()
     const [selectedProf, setSelectedProf] = useState()
+    const [sortBy, setSortBy] = useState({ iter: 'name', order: 'asc' })
 
-    const pageSize = 4
+    const pageSize = 8
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => {
@@ -32,8 +34,16 @@ const Users = ({ users: allUsers, ...rest }) => {
     }
 
     const handleSort = (item) => {
-        // Реализация события сортировки
-        console.log('item', item)
+        setSortBy({ iter: item, order: 'asc' }) // Реализация сортировки предпоследний
+        if (sortBy.iter === item) {
+            // Реализация сортировки последний
+            setSortBy((prevState) => ({
+                ...prevState,
+                order: prevState.order === 'asc' ? 'desc' : 'asc'
+            }))
+        } else {
+            setSortBy({ iter: item, order: 'asc' })
+        }
     }
 
     const filteredUsers = selectedProf
@@ -45,8 +55,10 @@ const Users = ({ users: allUsers, ...rest }) => {
         : allUsers
 
     const count = filteredUsers.length
-
-    const userGrop = paginate(filteredUsers, currentPege, pageSize)
+    // const sortedUsers = _.orderBy(filteredUsers, ['name'], ['asc']) // Реализация сортировки демонстрация вариант 1
+    // const sortedUsers = _.orderBy(filteredUsers, ['name'], ['desc']) // Реализация сортировки демонстрация вариант 2
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]) // Реализация сортировки последний
+    const userGrop = paginate(sortedUsers, currentPege, pageSize)
 
     const clearFilter = () => {
         setSelectedProf()
