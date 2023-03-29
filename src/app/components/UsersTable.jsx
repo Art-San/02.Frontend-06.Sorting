@@ -12,7 +12,7 @@ const UsersTable = ({ users, onSort, ...rest }) => {
                         Имя
                     </th>
                     <th scope="col">Качества</th>
-                    <th onClick={() => onSort('profession.name')} scope="col">
+                    <th onClick={() => onSort('professionname')} scope="col">
                         Провфессия
                     </th>
                     <th onClick={() => onSort('completedMeetings')} scope="col">

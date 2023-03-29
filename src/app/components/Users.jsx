@@ -34,7 +34,7 @@ const Users = ({ users: allUsers, ...rest }) => {
     }
 
     const handleSort = (item) => {
-        setSortBy({ iter: item, order: 'asc' }) // Реализация сортировки предпоследний
+        // setSortBy({ iter: item, order: 'asc' }) // Реализация сортировки предпоследний
         if (sortBy.iter === item) {
             // Реализация сортировки последний
             setSortBy((prevState) => ({
@@ -55,8 +55,6 @@ const Users = ({ users: allUsers, ...rest }) => {
         : allUsers
 
     const count = filteredUsers.length
-    // const sortedUsers = _.orderBy(filteredUsers, ['name'], ['asc']) // Реализация сортировки демонстрация вариант 1
-    // const sortedUsers = _.orderBy(filteredUsers, ['name'], ['desc']) // Реализация сортировки демонстрация вариант 2
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]) // Реализация сортировки последний
     const userGrop = paginate(sortedUsers, currentPege, pageSize)
 

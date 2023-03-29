@@ -8,15 +8,21 @@ const CitiTable = ({ city, onSort, ...rest }) => {
             <table className="table">
                 <thead>
                     <tr>
-                        <th onClick={() => onSort('name')}>Город</th>
-                        <th onClick={() => onSort('km')}>км</th>
-                        <th onClick={() => onSort('standard')}>Стандарт</th>
-                        <th onClick={() => onSort('elongated')}>Удлинненая</th>
-                        <th onClick={() => onSort('big')}>Большая</th>
-                        <th onClick={() => onSort('threetons')}>3х тоннмк</th>
-                        <th onClick={() => onSort('fivetons')}>5и тонник</th>
-                        <th onClick={() => onSort('bookmark')}>Отметка</th>
-                        <th />
+                        <th scope="col" onClick={() => onSort('name')}>
+                            Город
+                        </th>
+                        <th scope="col" onClick={() => onSort('km')}>
+                            км
+                        </th>
+                        <th scope="col">Стандарт</th>
+                        <th scope="col">Удлинненая</th>
+                        <th scope="col">Большая</th>
+                        <th scope="col">3х тоннмк</th>
+                        <th scope="col">5и тонник</th>
+                        <th scope="col" onClick={() => onSort('bookmark')}>
+                            Отметка
+                        </th>
+                        <th scope="col" />
                     </tr>
                 </thead>
                 <tbody>
