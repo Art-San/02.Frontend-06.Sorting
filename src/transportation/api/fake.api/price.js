@@ -164,10 +164,24 @@ const price = [
         bookmark: false
     }
 ]
-export function fetchAll() {
-    return price
-}
+// export function fetchAll() {
+//     return price
+// }
 
-export function fetchAllCars() {
-    return cars
-}
+// export function fetchAllCars() {
+//     return cars
+// }
+
+export const fetchAll = () =>
+    new Promise((resolve) => {
+        window.setTimeout(function () {
+            resolve([price, cars])
+        }, 2000)
+    })
+
+// export const fetchAllCars = () =>
+//     new Promise((resolve) => {
+//         window.setTimeout(function () {
+//             resolve(cars)
+//         }, 2000)
+//     })

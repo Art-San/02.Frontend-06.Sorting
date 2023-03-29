@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { paginate } from '../utils/paginate'
 import Pagination from './Pagination'
-import Сiti from './Сiti'
 import PropTypes from 'prop-types'
+import CitiTable from './CitiTable'
 
 const Сities = ({ cities: allcities, cars, ...rest }) => {
     const count = allcities.length
@@ -13,43 +13,30 @@ const Сities = ({ cities: allcities, cars, ...rest }) => {
         setCurrentPage(pageIndex)
     }
 
+    const handleSort = (item) => {
+        console.log('item', item)
+    }
+
     const cityGrop = paginate(allcities, currentPege, pageSize)
 
     return (
         <>
             {count > 0 && (
-                <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Город</th>
-                            <th scope="col">км</th>
-                            <th scope="col">Стандарт</th>
-                            <th scope="col">Удлинненая</th>
-                            <th scope="col">Большая</th>
-                            <th scope="col">3х тоннмк</th>
-                            <th scope="col">5и тонник</th>
-                            <th scope="col">Отметка</th>
-                            <th />
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {cityGrop.map((city) => (
-                            <Сiti key={city._id} {...rest} {...city} />
-                        ))}
-                    </tbody>
-                </table>
+                <CitiTable city={cityGrop} onSort={handleSort} {...rest} />
             )}
-            <Pagination
-                itemsCount={count}
-                pageSize={pageSize}
-                onPageChange={handlePageChange}
-                currentPege={currentPege}
-            />
+            <div className="d-flex justify-content-center">
+                <Pagination
+                    itemsCount={count}
+                    pageSize={pageSize}
+                    onPageChange={handlePageChange}
+                    currentPege={currentPege}
+                />
+            </div>
         </>
     )
 }
 Сities.propTypes = {
     cities: PropTypes.array,
-    cars: PropTypes.array
+    cars: PropTypes.object
 }
 export default Сities
