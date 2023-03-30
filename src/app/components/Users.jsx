@@ -6,7 +6,7 @@ import PropTypes from 'prop-types'
 import api from '../api/index'
 import SearchStatus from './SearchStatus'
 import UsersTable from './UsersTable'
-import _ from 'lodash' // Реализация сортировки
+import _ from 'lodash'
 
 const Users = ({ users: allUsers, ...rest }) => {
     const [currentPege, setCurrentPage] = useState(1)
@@ -34,9 +34,7 @@ const Users = ({ users: allUsers, ...rest }) => {
     }
 
     const handleSort = (item) => {
-        // setSortBy({ iter: item, order: 'asc' }) // Реализация сортировки предпоследний
         if (sortBy.iter === item) {
-            // Реализация сортировки последний
             setSortBy((prevState) => ({
                 ...prevState,
                 order: prevState.order === 'asc' ? 'desc' : 'asc'
@@ -55,7 +53,7 @@ const Users = ({ users: allUsers, ...rest }) => {
         : allUsers
 
     const count = filteredUsers.length
-    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order]) // Реализация сортировки последний
+    const sortedUsers = _.orderBy(filteredUsers, [sortBy.iter], [sortBy.order])
     const userGrop = paginate(sortedUsers, currentPege, pageSize)
 
     const clearFilter = () => {

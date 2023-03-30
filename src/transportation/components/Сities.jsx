@@ -3,7 +3,7 @@ import { paginate } from '../utils/paginate'
 import Pagination from './Pagination'
 import PropTypes from 'prop-types'
 import CitiTable from './CitiTable'
-import _ from 'lodash' // Реализация сортировки
+import _ from 'lodash'
 
 const Сities = ({ cities: allcities, cars, ...rest }) => {
     const count = allcities.length
@@ -16,9 +16,7 @@ const Сities = ({ cities: allcities, cars, ...rest }) => {
     }
 
     const handleSort = (item) => {
-        // setSortBy({ iter: item, order: 'asc' }) // Реализация сортировки предпоследний
         if (sortBy.iter === item) {
-            // Реализация сортировки последний
             setSortBy((prevState) => ({
                 ...prevState,
                 order: prevState.order === 'asc' ? 'desc' : 'asc'
@@ -28,7 +26,7 @@ const Сities = ({ cities: allcities, cars, ...rest }) => {
         }
     }
 
-    const sortedUsers = _.orderBy(allcities, [sortBy.iter], [sortBy.order]) // Реализация сортировки последний
+    const sortedUsers = _.orderBy(allcities, [sortBy.iter], [sortBy.order])
     const cityGrop = paginate(sortedUsers, currentPege, pageSize)
 
     return (
