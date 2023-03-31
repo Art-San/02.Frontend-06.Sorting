@@ -32,16 +32,9 @@ const Users = ({ users: allUsers, ...rest }) => {
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex)
     }
-
+    // Универсальный TableHeader
     const handleSort = (item) => {
-        if (sortBy.iter === item) {
-            setSortBy((prevState) => ({
-                ...prevState,
-                order: prevState.order === 'asc' ? 'desc' : 'asc'
-            }))
-        } else {
-            setSortBy({ iter: item, order: 'asc' })
-        }
+        setSortBy(item)
     }
 
     const filteredUsers = selectedProf
@@ -82,7 +75,8 @@ const Users = ({ users: allUsers, ...rest }) => {
                 {count > 0 && (
                     <UsersTable
                         users={userGrop}
-                        onSort={handleSort} // Реализация события сортировки
+                        onSort={handleSort}
+                        currenSort={sortBy} // Универсальный TableHeader
                         {...rest}
                     />
                 )}

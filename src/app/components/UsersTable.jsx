@@ -2,26 +2,44 @@ import React from 'react'
 import User from './User'
 import PropTypes from 'prop-types'
 
-const UsersTable = ({ users, onSort, ...rest }) => {
+const UsersTable = ({ users, onSort, currenSort, ...rest }) => {
+    // Универсальный TableHeader
+    const handleSort = (item) => {
+        console.log('currenSort.iter', currenSort.iter)
+        console.log('item', item)
+        if (currenSort.iter === item) {
+            onSort({
+                ...currenSort,
+                order: currenSort.order === 'asc' ? 'desc' : 'asc'
+            })
+        } else {
+            onSort({ iter: item, order: 'asc' })
+        }
+    }
     return (
         <table className="table">
             <thead>
-                {/* Реализация события сортировки onSort('name') */}
                 <tr>
-                    <th onClick={() => onSort('name')} scope="col">
+                    <th onClick={() => handleSort('name')} scope="col">
                         Имя
                     </th>
                     <th scope="col">Качества</th>
-                    <th onClick={() => onSort('professionname')} scope="col">
+                    <th
+                        onClick={() => handleSort('profession.name')}
+                        scope="col"
+                    >
                         Провфессия
                     </th>
-                    <th onClick={() => onSort('completedMeetings')} scope="col">
+                    <th
+                        onClick={() => handleSort('completedMeetings')}
+                        scope="col"
+                    >
                         Встретился, раз
                     </th>
-                    <th onClick={() => onSort('rate')} scope="col">
+                    <th onClick={() => handleSort('rate')} scope="col">
                         Оценка
                     </th>
-                    <th onClick={() => onSort('bookmark')} scope="col">
+                    <th onClick={() => handleSort('bookmark')} scope="col">
                         Избранное
                     </th>
                     <th />
@@ -38,7 +56,8 @@ const UsersTable = ({ users, onSort, ...rest }) => {
 
 UsersTable.propTypes = {
     users: PropTypes.array.isRequired,
-    onSort: PropTypes.func.isRequired
+    onSort: PropTypes.func.isRequired,
+    currenSort: PropTypes.object.isRequired
 }
 
 export default UsersTable
