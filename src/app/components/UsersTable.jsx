@@ -5,8 +5,6 @@ import PropTypes from 'prop-types'
 const UsersTable = ({ users, onSort, currenSort, ...rest }) => {
     // Универсальный TableHeader
     const handleSort = (item) => {
-        console.log('currenSort.iter', currenSort.iter)
-        console.log('item', item)
         if (currenSort.iter === item) {
             onSort({
                 ...currenSort,

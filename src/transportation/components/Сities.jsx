@@ -16,14 +16,7 @@ const Сities = ({ cities: allcities, cars, ...rest }) => {
     }
 
     const handleSort = (item) => {
-        if (sortBy.iter === item) {
-            setSortBy((prevState) => ({
-                ...prevState,
-                order: prevState.order === 'asc' ? 'desc' : 'asc'
-            }))
-        } else {
-            setSortBy({ iter: item, order: 'asc' })
-        }
+        setSortBy(item)
     }
 
     const sortedUsers = _.orderBy(allcities, [sortBy.iter], [sortBy.order])
@@ -32,7 +25,12 @@ const Сities = ({ cities: allcities, cars, ...rest }) => {
     return (
         <>
             {count > 0 && (
-                <CitiTable city={cityGrop} onSort={handleSort} {...rest} />
+                <CitiTable
+                    city={cityGrop}
+                    onSort={handleSort}
+                    currenSort={sortBy}
+                    {...rest}
+                />
             )}
             <div className="d-flex justify-content-center">
                 <Pagination
