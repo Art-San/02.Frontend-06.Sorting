@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 
 const TableHeader = ({ onSort, selectedSort, columns }) => {
     const handleSort = (item) => {
-        if (selectedSort.iter === item) {
+        if (selectedSort.path === item) {
             onSort({
                 ...selectedSort,
                 order: selectedSort.order === 'asc' ? 'desc' : 'asc'
             })
         } else {
-            onSort({ iter: item, order: 'asc' })
+            onSort({ path: item, order: 'asc' })
         }
     }
   return (
@@ -19,8 +19,8 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                 Object.keys(columns).map((column) => (
                     <th
                         key={column}
-                        onClick={ columns[column].iter
-                            ? () => handleSort(columns[column].iter)
+                        onClick={ columns[column].path
+                            ? () => handleSort(columns[column].path)
                             : undefined
                         }
                         scope="col"
@@ -29,21 +29,6 @@ const TableHeader = ({ onSort, selectedSort, columns }) => {
                     </th>
                 ))
             }
-            {/* <th scope="col" onClick={() => handleSort('name')}>
-                Город
-            </th>
-            <th scope="col" onClick={() => handleSort('km')}>
-                км
-            </th>
-            <th scope="col">Стандарт</th>
-            <th scope="col">Удлинненая</th>
-            <th scope="col">Большая</th>
-            <th scope="col">3х тоннмк</th>
-            <th scope="col">5и тонник</th>
-            <th scope="col" onClick={() => handleSort('bookmark')}>
-                Отметка
-            </th>
-            <th scope="col" /> */}
         </tr>
     </thead>
   )
