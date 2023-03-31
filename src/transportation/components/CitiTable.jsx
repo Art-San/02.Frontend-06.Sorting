@@ -1,22 +1,35 @@
 import React from 'react'
 import Сiti from './Сiti'
 import PropTypes from 'prop-types'
+import TableHeader from './TableHeader'
 
-const CitiTable = ({ city, onSort, currenSort, ...rest }) => {
-    const handleSort = (item) => {
-        if (currenSort.iter === item) {
-            onSort({
-                ...currenSort,
-                order: currenSort.order === 'asc' ? 'desc' : 'asc'
-            })
-        } else {
-            onSort({ iter: item, order: 'asc' })
-        }
+const CitiTable = ({ city, onSort, selectedSort, ...rest }) => {
+    // const handleSort = (item) => {
+    //     if (currenSort.iter === item) {
+    //         onSort({
+    //             ...currenSort,
+    //             order: currenSort.order === 'asc' ? 'desc' : 'asc'
+    //         })
+    //     } else {
+    //         onSort({ iter: item, order: 'asc' })
+    //     }
+    // }
+    const columns = {
+        name: { iter: 'name', name: 'Город' },
+        priceKm: { iter: 'km', name: 'км' },
+        standard: { iter: 'standard', name: 'Стандарт' },
+        elongated: { iter: 'elongated', name: 'Удлинненая' },
+        big: { iter: 'big', name: 'Большая' },
+        threetons: { iter: 'threetons', name: '3х тоннмк' },
+        fivetons: { iter: 'fivetons', name: '5и тоннмк' },
+        bookmark: { iter: 'bookmark', name: 'Избранное' },
+        delete: {}
     }
     return (
         <div className="table-responsive-sm">
             <table className="table">
-                <thead>
+                <TableHeader {...{ onSort, selectedSort, columns }}/>
+                {/* <thead>
                     <tr>
                         <th scope="col" onClick={() => handleSort('name')}>
                             Город
@@ -34,7 +47,7 @@ const CitiTable = ({ city, onSort, currenSort, ...rest }) => {
                         </th>
                         <th scope="col" />
                     </tr>
-                </thead>
+                </thead> */}
                 <tbody>
                     {city.map((city) => (
                         <Сiti key={city._id} {...rest} {...city} />
@@ -47,7 +60,7 @@ const CitiTable = ({ city, onSort, currenSort, ...rest }) => {
 CitiTable.propTypes = {
     city: PropTypes.any,
     onSort: PropTypes.func.isRequired,
-    currenSort: PropTypes.any
+    selectedSort: PropTypes.any
 }
 
 export default CitiTable

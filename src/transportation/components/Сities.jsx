@@ -28,7 +28,7 @@ const Сities = ({ cities: allcities, cars, ...rest }) => {
                 <CitiTable
                     city={cityGrop}
                     onSort={handleSort}
-                    currenSort={sortBy}
+                    selectedSort={sortBy}
                     {...rest}
                 />
             )}
