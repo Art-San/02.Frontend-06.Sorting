@@ -1,11 +1,11 @@
 import React from 'react'
-import User from './User'
+// import User from './User'
 import PropTypes from 'prop-types'
 import TableHeader from './TableHeader'
-// import TableBody from './TableBody'
+import TableBody from './TableBody'
 import BookMark from './Bookmark'
 
-const UsersTable = ({ users, onSort, selectedSort, onToggleBookMark, ...rest }) => {
+const UsersTable = ({ users, onSort, selectedSort, onToggleBookMark, onDelete, ...rest }) => {
     const columns = {
         name: { path: 'name', name: 'Имя' },
         qualities: { name: 'Качества' },
@@ -22,17 +22,25 @@ const UsersTable = ({ users, onSort, selectedSort, onToggleBookMark, ...rest }) 
                 />
             )
         },
-        delete: { component: 'delete' }
+        delete: {
+            component: (user) => (
+                <button
+                    onClick={() => onDelete(user._id)}
+                    className="btn btn-danger"
+                >
+                    delete
+                </button>)
+}
     }
     return (
         <table className="table">
             <TableHeader {...{ onSort, selectedSort, columns }}/>
-            {/* <TableBody {...{ columns, data: users }}/> */}
-            <tbody className="table-group-divider">
+            <TableBody {...{ columns, data: users }}/>
+            {/* <tbody className="table-group-divider">
                 {users.map((user) => (
                     <User key={user._id} {...rest} {...user} />
                 ))}
-            </tbody>
+            </tbody> */}
         </table>
     )
 }
@@ -41,7 +49,8 @@ UsersTable.propTypes = {
     users: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,
     selectedSort: PropTypes.object.isRequired,
-    onToggleBookMark: PropTypes.func.isRequired
+    onToggleBookMark: PropTypes.func.isRequired,
+    onDelete: PropTypes.func
 }
 
 export default UsersTable
