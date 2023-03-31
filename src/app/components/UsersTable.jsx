@@ -1,48 +1,22 @@
 import React from 'react'
 import User from './User'
 import PropTypes from 'prop-types'
+import TableHeader from './TableHeader'
 
-const UsersTable = ({ users, onSort, currenSort, ...rest }) => {
-    // Универсальный TableHeader
-    const handleSort = (item) => {
-        if (currenSort.iter === item) {
-            onSort({
-                ...currenSort,
-                order: currenSort.order === 'asc' ? 'desc' : 'asc'
-            })
-        } else {
-            onSort({ iter: item, order: 'asc' })
-        }
+const UsersTable = ({ users, onSort, selectedSort, ...rest }) => {
+    // Извлечение TableHeader
+    const columns = {
+        name: { iter: 'name', name: 'Имя' },
+        qualities: { name: 'Качества' },
+        profession: { iter: 'profession.name', name: 'Провфессия' },
+        completedMeetings: { iter: 'completedMeetings', name: 'Встретился, раз' },
+        rate: { iter: 'rate', name: 'Оценка' },
+        bookmark: { iter: 'bookmark', name: 'Избранное' },
+        delete: {}
     }
     return (
         <table className="table">
-            <thead>
-                <tr>
-                    <th onClick={() => handleSort('name')} scope="col">
-                        Имя
-                    </th>
-                    <th scope="col">Качества</th>
-                    <th
-                        onClick={() => handleSort('profession.name')}
-                        scope="col"
-                    >
-                        Провфессия
-                    </th>
-                    <th
-                        onClick={() => handleSort('completedMeetings')}
-                        scope="col"
-                    >
-                        Встретился, раз
-                    </th>
-                    <th onClick={() => handleSort('rate')} scope="col">
-                        Оценка
-                    </th>
-                    <th onClick={() => handleSort('bookmark')} scope="col">
-                        Избранное
-                    </th>
-                    <th />
-                </tr>
-            </thead>
+            <TableHeader {...{ onSort, selectedSort, columns }}/>
             <tbody className="table-group-divider">
                 {users.map((user) => (
                     <User key={user._id} {...rest} {...user} />
@@ -55,7 +29,7 @@ const UsersTable = ({ users, onSort, currenSort, ...rest }) => {
 UsersTable.propTypes = {
     users: PropTypes.array.isRequired,
     onSort: PropTypes.func.isRequired,
-    currenSort: PropTypes.object.isRequired
+    selectedSort: PropTypes.object.isRequired
 }
 
 export default UsersTable
