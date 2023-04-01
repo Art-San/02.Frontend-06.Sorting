@@ -1,10 +1,10 @@
 import React from 'react'
-// import User from './User'
 import PropTypes from 'prop-types'
-import TableHeader from './TableHeader'
-import TableBody from './TableBody'
+// import TableHeader from './TableHeader'
+// import TableBody from './TableBody'
 import BookMark from './Bookmark'
 import QualitiesList from './QualitiesList'
+import Table from './Table'
 
 const UsersTable = ({ users, onSort, selectedSort, onToggleBookMark, onDelete, ...rest }) => {
     const columns = {
@@ -40,15 +40,24 @@ const UsersTable = ({ users, onSort, selectedSort, onToggleBookMark, onDelete, .
 }
     }
     return (
-        <table className="table">
-            <TableHeader {...{ onSort, selectedSort, columns }}/>
-            <TableBody {...{ columns, data: users }}/>
-            {/* <tbody className="table-group-divider">
-                {users.map((user) => (
-                    <User key={user._id} {...rest} {...user} />
-                ))}
-            </tbody> */}
-        </table>
+        // Второй вариант
+        // <Table
+        //     onSort={onSort}
+        //     selectedSort={selectedSort}
+        //     columns={columns}
+        //     data={users}
+        // >
+        //     <TableHeader {...{ onSort, selectedSort, columns }}/>
+        //     <TableBody {...{ columns, data: users }}/>
+        // </Table>
+
+            // Первый вариант
+            <Table
+                onSort={onSort}
+                selectedSort={selectedSort}
+                columns={columns}
+                data={users}
+            />
     )
 }
 

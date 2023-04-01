@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Qualitie from './Qualitie'
-// Реализация качества пользователей
+
 const QualitiesList = ({ qualities }) => {
   return (
     <>

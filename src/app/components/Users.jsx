@@ -8,13 +8,32 @@ import SearchStatus from './SearchStatus'
 import UsersTable from './UsersTable'
 import _ from 'lodash'
 
-const Users = ({ users: allUsers, ...rest }) => {
+const Users = () => {
     const [currentPege, setCurrentPage] = useState(1)
     const [professions, setProfessions] = useState()
     const [selectedProf, setSelectedProf] = useState()
     const [sortBy, setSortBy] = useState({ iter: 'name', order: 'asc' })
 
     const pageSize = 8
+
+    const [users, setUsers] = useState()
+    useEffect(() => {
+        api.users.fetchAll().then((data) => setUsers(data))
+    }, [])
+    const handleDelete = (userId) => {
+        setUsers(users.filter((user) => user._id !== userId))
+    }
+    const handleToggleBookMark = (id) => {
+        setUsers(
+            users.map((user) => {
+                if (user._id === id) {
+                    return { ...user, bookmark: !user.bookmark }
+                }
+                return user
+            })
+        )
+        console.log(id)
+    }
 
     useEffect(() => {
         api.professions.fetchAll().then((data) => {
@@ -32,18 +51,19 @@ const Users = ({ users: allUsers, ...rest }) => {
     const handlePageChange = (pageIndex) => {
         setCurrentPage(pageIndex)
     }
-    // Универсальный TableHeader
+
     const handleSort = (item) => {
         setSortBy(item)
     }
 
+    if (users) {
     const filteredUsers = selectedProf
-        ? allUsers.filter(
+        ? users.filter(
               (user) =>
                   JSON.stringify(user.profession) ===
                   JSON.stringify(selectedProf)
           )
-        : allUsers
+        : users
 
     const count = filteredUsers.length
     const sortedUsers = _.orderBy(filteredUsers, [sortBy.path], [sortBy.order])
@@ -76,8 +96,9 @@ const Users = ({ users: allUsers, ...rest }) => {
                     <UsersTable
                         users={userGrop}
                         onSort={handleSort}
-                        selectedSort={sortBy} // Универсальный TableHeader
-                        {...rest}
+                        selectedSort={sortBy}
+                        onDelete={handleDelete}
+                        onToggleBookMark={handleToggleBookMark}
                     />
                 )}
                 <div className="d-flex justify-content-center">
@@ -91,6 +112,8 @@ const Users = ({ users: allUsers, ...rest }) => {
             </div>
         </div>
     )
+}
+    return 'Loading...'
 }
 Users.propTypes = {
     users: PropTypes.array
