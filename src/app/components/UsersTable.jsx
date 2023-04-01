@@ -18,14 +18,14 @@ const UsersTable = ({ users, onSort, selectedSort, onToggleBookMark, onDelete, .
             component: (user) => (
                 <BookMark
                     status={user.bookmark}
-                    onClick={() => onToggleBookMark(user._id)}
+                    onClick={() => onToggleBookMark(user._id)} // Ячейка вложенного компонента
                 />
             )
         },
         delete: {
             component: (user) => (
                 <button
-                    onClick={() => onDelete(user._id)}
+                    onClick={() => onDelete(user._id)} // Ячейка вложенного компонента
                     className="btn btn-danger"
                 >
                     delete

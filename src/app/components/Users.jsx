@@ -76,7 +76,7 @@ const Users = ({ users: allUsers, ...rest }) => {
                     <UsersTable
                         users={userGrop}
                         onSort={handleSort}
-                        selectedSort={sortBy} // Универсальный TableHeader
+                        selectedSort={sortBy}
                         {...rest}
                     />
                 )}
