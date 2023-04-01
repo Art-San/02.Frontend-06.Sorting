@@ -5,7 +5,6 @@ import PropTypes from 'prop-types'
 
 const Table = ({ onSort, selectedSort, columns, data, children }) => {
     return (
-        // Второй и первый вариант работают с этим вариантом
           <table className="table">
               {children || (
                 <>
@@ -16,16 +15,6 @@ const Table = ({ onSort, selectedSort, columns, data, children }) => {
           </table>
     )
   }
-
-// Первый вариант
-// const Table = ({ onSort, selectedSort, columns, data }) => {
-//   return (
-//         <table className="table">
-//             <TableHeader {...{ onSort, selectedSort, columns }}/>
-//             <TableBody {...{ columns, data }}/>
-//         </table>
-//   )
-// }
 
 Table.propTypes = {
     onSort: PropTypes.func,
