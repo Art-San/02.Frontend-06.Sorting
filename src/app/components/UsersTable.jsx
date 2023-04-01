@@ -4,13 +4,20 @@ import PropTypes from 'prop-types'
 import TableHeader from './TableHeader'
 import TableBody from './TableBody'
 import BookMark from './Bookmark'
+import QualitiesList from './QualitiesList'
 
 const UsersTable = ({ users, onSort, selectedSort, onToggleBookMark, onDelete, ...rest }) => {
     const columns = {
         name: { path: 'name', name: 'Имя' },
-        qualities: { name: 'Качества' },
+        qualities: {
+            name: 'Качества',
+            component: (user) => (<QualitiesList qualities={user.qualities}/>) // Реализация качества пользователей
+        },
         profession: { path: 'profession.name', name: 'Провфессия' },
-        completedMeetings: { path: 'completedMeetings', name: 'Встретился, раз' },
+        completedMeetings: {
+            path: 'completedMeetings',
+            name: 'Встретился, раз'
+        },
         rate: { path: 'rate', name: 'Оценка' },
         bookmark: {
             path: 'bookmark',
